@@ -43,11 +43,11 @@ With package.json file, I have run npm install ,this will generate a package-loc
   }
 }
 
-Then, I have created an index.js file that defines a web app using the Express.js framework.
 ```
+I have created an index.js file that defines a web app using the Express.js framework.
+
 -**Index.js**
 
-##################################
 ```
 
 const express = require('express');
@@ -91,7 +91,8 @@ app.listen(PORT);
 console.log(`Running on port: ${PORT}`);
 
 ```
-#####################################
+
+
 
 I have created an empty file called Dockerfile then I have defined from what image I want to build from. 
 
@@ -173,7 +174,7 @@ aws cloudformation deploy \
 ```
 # Run the healthcheck script
 
-You can run the healtcheck.sh externally using using this script:
+You can run the healtcheck.sh externally using this code:
 ```
 #!/bin/bash
 
