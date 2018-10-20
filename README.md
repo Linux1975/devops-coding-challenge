@@ -25,8 +25,8 @@ Starting from that I then deployed an ECS cluster usign Cloudformation , with tw
 First, I have created a new directory ,now-project, where all the files stand and created a file package.json ,this file describes the app and its dependencies
 With package.json file, I have run npm install ,this will generate a package-lock.json , file which will be copied to the Docker image.
 
--Package.json
-
+-***Package.json***
+```
 {
   "name": "Now",
   "version": "1.0.0",
@@ -44,7 +44,7 @@ With package.json file, I have run npm install ,this will generate a package-loc
 }
 
 Then, I have created an index.js file that defines a web app using the Express.js framework.
-
+```
 -**Index.js**
 
 ##################################
@@ -96,7 +96,7 @@ console.log(`Running on port: ${PORT}`);
 I have created an empty file called Dockerfile then I have defined from what image I want to build from. 
 
 -**Dockerfile**
-
+```
 FROM node:8.11.1
 
 WORKDIR /usr/src/app
@@ -112,19 +112,22 @@ HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1  #With this command we
 VOLUME /etc/timezone:/etc/timezone                         #With this command we can syncronize time between the host and the container
 VOLUME /etc/localtime:/etc/localtime
 
+```
 I have then built the image , run it and test the app 
 
 $ docker build -t now-time:latest .
 
 $ docker images
 
-# Example
+# Example0
+```
 docker images                            
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 now-time            1.0.0               be0392df8aa3        31 hours ago        683MB
 now-time            latest              be0392df8aa3        31 hours ago        683MB
 <none>              <none>              37b5603a3041        44 hours ago        683MB
 node                8.11.1              78f8aef50581        5 months ago        673MB
+```
 
 $ docker run  -d <your node-web-app
 Print the output of your app:
@@ -150,12 +153,12 @@ ee17dea56f1c        37b5603a3041        "npm start"         44 hours ago        
 
 I have pushed the image just created and uploaded to the ECR repository.
 
-2)Create an ECS Cluster with Cloudformation (you can find the template in my aws account )
+2)Create an ECS Cluster with Cloudformation (please refer to the templatein my aws account )
 
 I have used a CloudFormation stack to launch all the requisite AWS resources: two instances , in different availability zones, using Amazon ECS-Optimized Amazon Linux AMI using a scaling group with an ALB.
 In the Userdata part the healtcheck.sh script will be downloaded from my GitHub account changing the permisssion (chmod u+x script)
 I have vreated the stack in a terminal and run the AWS CLI command below to create :
-
+```
 aws cloudformation deploy \
     --stack-name Now\
     --template-file ./cloudformation/<template>.yml \
@@ -169,11 +172,11 @@ aws cloudformation deploy \
     EcsImageVersion='<app_version>' \
     InstanceType=t2.micro \
     MaxSize=2
-
+```
 # Run the healthcheck script
 
-You can run the healtcheck.sh using this script:
-
+You can run the healtcheck.sh externally using using this script:
+```
 #!/bin/bash
 
 
@@ -183,3 +186,4 @@ echo "####-Instance number 1-####"
 ssh -i "Key.pem" ec2-user@$(cat ip-instance-1.txt ) sudo su -c /root/healthcheck.sh
 echo "####-Instance number 2-####"
 ssh -i "Key.pem" ec2-user@$(cat ip-instance-2.txt ) sudo su -c /root/healthcheck.sh
+```
