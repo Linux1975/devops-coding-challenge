@@ -152,7 +152,7 @@ ee17dea56f1c        37b5603a3041        "npm start"         44 hours ago        
 
 I have pushed the image just created and uploaded to the ECR repository.
 
-2)***Create an ECS Cluster with Cloudformation (please refer to the templatein my aws account )***
+2)***Create an ECS Cluster with Cloudformation (please refer to the template in my aws account )***
 
 I have used a CloudFormation stack to launch all the requisite AWS resources: two instances , in different availability zones, using Amazon ECS-Optimized Amazon Linux AMI using a scaling group with an ALB.
 In the Userdata part the healtcheck.sh script will be downloaded from my GitHub account changing the permisssion (chmod u+x script)
