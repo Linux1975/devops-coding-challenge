@@ -129,15 +129,19 @@ $ docker run  -d <your node-web-app
 Print the output of your app:
 
 # Get container ID
+
 $ docker ps
 
 # Print app output
+
 $ docker logs <container id>
 
 # Example
+
 Running on http://localhost:9999
 
 # Example
+
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                  PORTS                NAMES           
 ee17dea56f1c        37b5603a3041        "npm start"         44 hours ago        Up 44 hours (healthy)   0.0.0.0:9999->80/tcp   now-container
 
@@ -145,7 +149,7 @@ I have pushed the image just created and uploaded to the ECR repository.
 
 2)Create an ECS Cluster with Cloudformation (you can find the template in my aws account )
 
-I have used a CloudFormation stack to launch all the requisite AWS resources.  with two instances , in different availability zones, using Amazon ECS-Optimized Amazon Linux AMI in a scaling group with an ALB.
+I have used a CloudFormation stack to launch all the requisite AWS resources.  with two instances , in different availability zones, using Amazon ECS-Optimized Amazon Linux AMI in a scaling group with an ALB.In the Userdata part I have downloaded the healtcheck.sh script from my GitHub account and changed the permisssion
 I have vreated the stack in a terminal and run the AWS CLI command below to create :
 
 aws cloudformation deploy \
