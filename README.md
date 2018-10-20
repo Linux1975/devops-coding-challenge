@@ -118,7 +118,7 @@ $ docker build -t now-time:latest .
 $ docker images
 
 # Example
-docker images                             ✔  3856  16:40:09
+docker images                            
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 now-time            1.0.0               be0392df8aa3        31 hours ago        683MB
 now-time            latest              be0392df8aa3        31 hours ago        683MB
@@ -167,3 +167,5 @@ aws cloudformation deploy \
     MaxSize=2
 
 # Run the healthcheck script
+
+You can run the healtcheck.sh with this script that gets the IPs from the EC2 instances 
