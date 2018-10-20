@@ -174,7 +174,15 @@ aws cloudformation deploy \
 ```
 # Run the healthcheck script
 
-You can run the healtcheck.sh externally using this code:
+You can run the healtcheck.sh https://raw.githubusercontent.com/Linux1975/Scripts/master/healthcheck.sh
+externally using this code ,basically in this script we check the NTP inside the EC2 instance.
+"having added in the Dockerfile these two lines we have the same time in the HOST and in the CONTAINER "
+
+
+VOLUME /etc/timezone:/etc/timezone                   
+VOLUME /etc/localtime:/etc/localtime
+
+
 ```
 #!/bin/bash
 
