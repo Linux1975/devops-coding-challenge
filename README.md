@@ -168,4 +168,14 @@ aws cloudformation deploy \
 
 # Run the healthcheck script
 
-You can run the healtcheck.sh with this script that gets the IPs from the EC2 instances 
+You can run the healtcheck.sh using this script:
+
+#!/bin/bash
+
+
+aws ec2 describe-instances --instance-ids <instance-id> --query 'Reservations[*].Instances[*].PublicIpAddress' --output text > ip-instance-1.txt
+aws ec2 describe-instances --instance-ids <instance-id> --query 'Reservations[*].Instances[*].PublicIpAddress' --output text > ip-instance-2.txt
+echo "####-Instance number 1-####"
+ssh -i "Key.pem" ec2-user@$(cat ip-instance-1.txt ) sudo su -c /root/healthcheck.sh
+echo "####-Instance number 2-####"
+ssh -i "Key.pem" ec2-user@$(cat ip-instance-2.txt ) sudo su -c /root/healthcheck.sh
