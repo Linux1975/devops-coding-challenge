@@ -16,7 +16,7 @@ You are required to provision and deploy a new service in AWS. It must:
 # Provision the service.
 
 I have created a simple web application using Express, a fast minimalist web framework for Node.js,and Moment.js that is a library that validate, manipulate, and display dates and times in JavaScript. I have also used this Library : Redirect.js.  
-I have build a Docker image for that application and then run the image as a container locally to test the web page, uploaded the docker image to the ECS AWS Repository ,ECR. 
+I have built a Docker image for that application and then run the image as a container locally to test the web page, uploaded the docker image to the ECS AWS Repository ,ECR. 
 Starting from that I then deployed an ECS cluster usign Cloudformation , with two instances , in different availability zone, using Amazon ECS-Optimized Amazon Linux AMI in a scaling group with an ALB.
 
 
@@ -48,6 +48,7 @@ Then, I have created an index.js file that defines a web app using the Express.j
 -Index.js :
 
 ##################################
+
 const express = require('express');
 const moment = require('moment');
 const redirect = require('express-simple-redirect');
@@ -65,11 +66,10 @@ app.get('/', (req, res) => {
         <body>\n
         <p>Remember the time is always now :)</p>
         <p>App version ${version}</p>
-        <p>App started ${STARTUP_TIME.fromNow()}.</p> //It will show current time
+        <p>App started ${STARTUP_TIME.fromNow()}.</p>              
 	</head>
 	<p id="now"></p>
-
-	<script>
+        <script>
 	var localTime = new Date();
 	document.getElementById("now").innerHTML = localTime;
 	</script>
@@ -113,16 +113,19 @@ VOLUME /etc/localtime:/etc/localtime
 
 I have then built the image , run it and test the app 
 
-$ docker build -t now-time .
+$ docker build -t now-time:latest .
 
 $ docker images
 
 # Example
-REPOSITORY                      TAG        ID              CREATED
-node                            8          1934b0b038d1    5 days ago
-ow-time    latest     d64d3505b0d2    1 minute ago
+docker images                             ✔  3856  16:40:09
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+now-time            1.0.0               be0392df8aa3        31 hours ago        683MB
+now-time            latest              be0392df8aa3        31 hours ago        683MB
+<none>              <none>              37b5603a3041        44 hours ago        683MB
+node                8.11.1              78f8aef50581        5 months ago        673MB
 
-$ docker run  -d <your username>/node-web-app
+$ docker run  -d <your node-web-app
 Print the output of your app:
 
 # Get container ID
@@ -138,5 +141,25 @@ Running on http://localhost:9999
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                  PORTS                NAMES           
 ee17dea56f1c        37b5603a3041        "npm start"         44 hours ago        Up 44 hours (healthy)   0.0.0.0:9999->80/tcp   now-container
 
+I have pushed the image just created and uploaded to the ECR repository.
+
+2)Create an ECS Cluster with Cloudformation (you can find the template in my aws account )
+
+I have used a CloudFormation stack to launch all the requisite AWS resources.  with two instances , in different availability zones, using Amazon ECS-Optimized Amazon Linux AMI in a scaling group with an ALB.
+I have vreated the stack in a terminal and run the AWS CLI command below to create :
+
+aws cloudformation deploy \
+    --stack-name Now\
+    --template-file ./cloudformation/<template>.yml \
+    --capabilities CAPABILITY_IAM \
+    --parameter-overrides KeyName='<keypair_id>' \
+    VpcId='<vpc_id>' \
+    SubnetId='<subnet_id_1>,<subnet_id_2>' \
+    ContainerPort=80 \
+    DesiredCapacity=2 \
+    EcsImageUri='<ecr_image_uri>' \
+    EcsImageVersion='<app_version>' \
+    InstanceType=t2.micro \
+    MaxSize=2
 
 # Run the healthcheck script
