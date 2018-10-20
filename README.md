@@ -15,8 +15,8 @@ You are required to provision and deploy a new service in AWS. It must:
 
 # Provision the service.
 
-I have created a simple web application using Express, a fast minimalist web framework for Node.js,and Moment.js that is a library that validate, manipulate, and display dates and times in JavaScript. I have also used this Library : Redirect.js.  
-I have built a Docker image for that application and then run the image as a container locally to test the web page, uploaded the docker image to the ECS AWS Repository ,ECR. 
+I have created a simple web application using Express, a fast minimalist web framework for Node.js,and Moment.js a library that validate, manipulate, and display dates and times in JavaScript. I have also used this Library : Redirect.js , to redirect the URL /now to the root.
+I have built a Docker image for that application and run the image as a container locally to test the web page, uploaded the docker image to the ECS AWS Repository ,ECR. 
 Starting from that I then deployed an ECS cluster usign Cloudformation , with two instances , in different availability zone, using Amazon ECS-Optimized Amazon Linux AMI in a scaling group with an ALB.
 
 
@@ -45,7 +45,7 @@ With package.json file, I have run npm install ,this will generate a package-loc
 
 Then, I have created an index.js file that defines a web app using the Express.js framework.
 
--Index.js :
+-**Index.js**
 
 ##################################
 ```
@@ -90,12 +90,12 @@ app.use(redirect({
 app.listen(PORT);
 console.log(`Running on port: ${PORT}`);
 
-```0
+```
 #####################################
 
 I have created an empty file called Dockerfile then I have defined from what image I want to build from. 
 
--Dockerfile
+-**Dockerfile**
 
 FROM node:8.11.1
 
