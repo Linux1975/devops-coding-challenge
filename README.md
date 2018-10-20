@@ -20,7 +20,7 @@ I have built a Docker image for that application and run the image as a containe
 Starting from that I then deployed an ECS cluster usign Cloudformation , with two instances , in different availability zone, using Amazon ECS-Optimized Amazon Linux AMI in a scaling group with an ALB.
 
 
-1)Create a docker container with Nodejs:
+1)**Create a docker container with Nodejs:***
 
 First, I have created a new directory ,now-project, where all the files stand and created a file package.json ,this file describes the app and its dependencies
 With package.json file, I have run npm install ,this will generate a package-lock.json , file which will be copied to the Docker image.
@@ -129,8 +129,6 @@ now-time            latest              be0392df8aa3        31 hours ago        
 node                8.11.1              78f8aef50581        5 months ago        673MB
 ```
 
-$ docker run  -d <your node-web-app
-Print the output of your app:
 
 # Get container ID
 
@@ -146,14 +144,14 @@ Running on http://localhost:9999
 
 # Example
 
-'''
+```
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                  PORTS                NAMES           
 ee17dea56f1c        37b5603a3041        "npm start"         44 hours ago        Up 44 hours (healthy)   0.0.0.0:9999->80/tcp   now-container
-...
+```
 
 I have pushed the image just created and uploaded to the ECR repository.
 
-2)Create an ECS Cluster with Cloudformation (please refer to the templatein my aws account )
+2)***Create an ECS Cluster with Cloudformation (please refer to the templatein my aws account )***
 
 I have used a CloudFormation stack to launch all the requisite AWS resources: two instances , in different availability zones, using Amazon ECS-Optimized Amazon Linux AMI using a scaling group with an ALB.
 In the Userdata part the healtcheck.sh script will be downloaded from my GitHub account changing the permisssion (chmod u+x script)
