@@ -174,7 +174,7 @@ aws cloudformation deploy \
 ```
 # Run the healthcheck script
 
-You can run the healtcheck.sh [GitHub Raw Script](https://raw.githubusercontent.com/Linux1975/Scripts/master/healthcheck.sh)
+You can run the healtcheck.sh , [GitHub Raw Script](https://raw.githubusercontent.com/Linux1975/Scripts/master/healthcheck.sh) ,
 externally using this code ,basically in this script we can check the NTP inside the EC2 instance ,having added in the Dockerfile , these two lines we have the same time in the HOST and in the CONTAINER
 
 
