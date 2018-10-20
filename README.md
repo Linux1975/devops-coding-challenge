@@ -11,7 +11,7 @@ Script the creation of a service, and a healthcheck script to verify it is up an
 You are required to provision and deploy a new service in AWS. It must:
 
 * Be publicly accessible, but *only* on port 80.
-* Return the current time on `/now`. [/now] (http://ecsalb-544162836.eu-west-1.elb.amazonaws.com/now)
+* Return the current time on `/now`. [/now](http://ecsalb-544162836.eu-west-1.elb.amazonaws.com/now)
 
 # Provision the service.
 
