@@ -48,7 +48,8 @@ Then, I have created an index.js file that defines a web app using the Express.j
 -Index.js :
 
 ##################################
-'''
+```
+
 const express = require('express');
 const moment = require('moment');
 const redirect = require('express-simple-redirect');
@@ -88,8 +89,8 @@ app.use(redirect({
 
 app.listen(PORT);
 console.log(`Running on port: ${PORT}`);
-'''
 
+```0
 #####################################
 
 I have created an empty file called Dockerfile then I have defined from what image I want to build from. 
