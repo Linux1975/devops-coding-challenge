@@ -109,7 +109,7 @@ COPY . .
 
 EXPOSE 80
 CMD [ "npm", "start" ]
-HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1  #With this command we can check if our container is healthy or not 
+HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1  #With this command we can check if our container is healthy on port 80 
 VOLUME /etc/timezone:/etc/timezone                         #With this command we can syncronize time between the host and the container
 VOLUME /etc/localtime:/etc/localtime
 
